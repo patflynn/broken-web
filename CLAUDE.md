@@ -27,3 +27,9 @@
 - Always use Pull Request workflow for changes (no direct pushes to main)
 - Keep Pull Requests focused on a single task or feature
 - PRs should include a clear description of changes and purpose
+- **IMPORTANT**: Always pull and rebase with the main branch before creating PRs
+  ```
+  git fetch origin main
+  git rebase origin/main
+  ```
+- Resolve any conflicts during rebase before pushing to remote
