@@ -2,6 +2,8 @@
 
 A minimalist terminal-inspired website.
 
+[![GCS Deployment Status](https://img.shields.io/badge/GCS%20Deployment-active-success)](https://broken.dev)
+
 ## Development
 
 See [CLAUDE.md](CLAUDE.md) for development guidelines and commands.
