@@ -23,3 +23,6 @@
 ## Version Control
 - Commit messages should be clear and descriptive
 - Keep the website focused on promoting the VIBE meditation app
+- Always use Pull Request workflow for changes (no direct pushes to main)
+- Keep Pull Requests focused on a single task or feature
+- PRs should include a clear description of changes and purpose
