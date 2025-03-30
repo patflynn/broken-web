@@ -35,17 +35,13 @@ jobs:
           echo "Deploying public directory to ${{ secrets.GCS_BUCKET_NAME }}"
           gsutil -m rsync -r public/ gs://${{ secrets.GCS_BUCKET_NAME }}/
           
-      - name: Set CORS policy
+      - name: Configure GCS bucket
         run: |
           echo "Setting CORS policy"
           gsutil cors set config/cors.json gs://${{ secrets.GCS_BUCKET_NAME }}
           
-      - name: Set website configuration
-        run: |
           echo "Setting website configuration"
           gsutil web set -m index.html -e 404.html gs://${{ secrets.GCS_BUCKET_NAME }}
           
-      - name: Set public access
-        run: |
           echo "Setting public access"
           gsutil iam ch allUsers:objectViewer gs://${{ secrets.GCS_BUCKET_NAME }}
