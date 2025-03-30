@@ -38,7 +38,7 @@ jobs:
       - name: Set CORS policy
         run: |
           echo "Setting CORS policy"
-          cd public && gsutil cors set cors.json gs://${{ secrets.GCS_BUCKET_NAME }}
+          gsutil cors set config/cors.json gs://${{ secrets.GCS_BUCKET_NAME }}
           
       - name: Set website configuration
         run: |

@@ -7,7 +7,8 @@ A minimalist terminal-inspired website.
 - **public/** - Contains all files that are deployed to the website
   - HTML files
   - CSS files
-  - Configuration files (CORS)
+- **config/** - Contains configuration files not deployed to the website
+  - CORS configuration
 - **CLAUDE.md** - Development guidelines
 - **.github/** - CI/CD workflows
 
