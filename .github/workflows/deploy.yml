@@ -47,10 +47,24 @@ jobs:
         run: |
           echo "Deploying to ${{ secrets.GCS_BUCKET_NAME }}"
           gcloud storage ls gs://${{ secrets.GCS_BUCKET_NAME }} || echo "Cannot list bucket - checking permissions"
+          
+          # Set bucket permissions if needed
+          echo "Setting public access on bucket"
+          gsutil iam ch allUsers:objectViewer gs://${{ secrets.GCS_BUCKET_NAME }} || echo "Failed to set public access - may already be set"
+          
+          # Deploy files
+          echo "Syncing files to bucket"
           gsutil -m rsync -r . gs://${{ secrets.GCS_BUCKET_NAME }} -x ".git/|.github/|.gitignore|CLAUDE.md|README.md"
+          
           # Copy index.html to 404.html if it doesn't exist (GCS default error handling)
+          echo "Setting up 404 error handling"
           gsutil cp index.html gs://${{ secrets.GCS_BUCKET_NAME }}/404.html -n
           
-      - name: Set CORS policy
+      - name: Set CORS policy and website configuration
         run: |
+          echo "Setting CORS policy"
           gsutil cors set cors.json gs://${{ secrets.GCS_BUCKET_NAME }}
+          
+          # Set website configuration
+          echo "Setting website configuration"
+          gsutil web set -m index.html -e 404.html gs://${{ secrets.GCS_BUCKET_NAME }}
