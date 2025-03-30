@@ -23,48 +23,29 @@ jobs:
         with:
           workload_identity_provider: projects/411022031947/locations/global/workloadIdentityPools/dev-workflows-pool/providers/github-workflows
           service_account: broken-web-github-deployer@broken-dev.iam.gserviceaccount.com
-          token_format: access_token
           create_credentials_file: true
-          export_environment_variables: true
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          install_components: 'gsutil'
           
-      - name: Verify authentication
+      - name: Deploy public directory to Google Cloud Storage
         run: |
-          gcloud auth list
-          gcloud config list
+          echo "Deploying public directory to ${{ secrets.GCS_BUCKET_NAME }}"
+          gsutil -m rsync -r public/ gs://${{ secrets.GCS_BUCKET_NAME }}/
           
-      - name: Debug Google Cloud config
-        run: |
-          echo "GCLOUD_PROJECT: $GCLOUD_PROJECT"
-          echo "Credentials Path: ${{ steps.auth.outputs.credentials_file_path }}"
-          
-      - name: Deploy to Google Cloud Storage
-        run: |
-          echo "Deploying to ${{ secrets.GCS_BUCKET_NAME }}"
-          gcloud storage ls gs://${{ secrets.GCS_BUCKET_NAME }} || echo "Cannot list bucket - checking permissions"
-          
-          # Set bucket permissions if needed
-          echo "Setting public access on bucket"
-          gsutil iam ch allUsers:objectViewer gs://${{ secrets.GCS_BUCKET_NAME }} || echo "Failed to set public access - may already be set"
-          
-          # Deploy files
-          echo "Syncing files to bucket"
-          gsutil -m rsync -r . gs://${{ secrets.GCS_BUCKET_NAME }} -x ".git/|.github/|.gitignore|CLAUDE.md|README.md"
-          
-          # Copy index.html to 404.html if it doesn't exist (GCS default error handling)
-          echo "Setting up 404 error handling"
-          gsutil cp index.html gs://${{ secrets.GCS_BUCKET_NAME }}/404.html -n
-          
-      - name: Set CORS policy and website configuration
+      - name: Set CORS policy
         run: |
           echo "Setting CORS policy"
-          gsutil cors set cors.json gs://${{ secrets.GCS_BUCKET_NAME }}
+          gsutil cors set config/cors.json gs://${{ secrets.GCS_BUCKET_NAME }}
           
-          # Set website configuration
+      - name: Set website configuration
+        run: |
           echo "Setting website configuration"
           gsutil web set -m index.html -e 404.html gs://${{ secrets.GCS_BUCKET_NAME }}
+          
+      - name: Set public access
+        run: |
+          echo "Setting public access"
+          gsutil iam ch allUsers:objectViewer gs://${{ secrets.GCS_BUCKET_NAME }}
