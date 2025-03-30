@@ -2,7 +2,7 @@
 
 A minimalist terminal-inspired website.
 
-[![GCS Deployment Status](https://img.shields.io/badge/GCS%20Deployment-active-success)](https://broken.dev)
+[![GCS Deployment Status](https://github.com/patflynn/broken-web/actions/workflows/deploy.yml/badge.svg)](https://github.com/patflynn/broken-web/actions/workflows/deploy.yml) [![Live Site](https://img.shields.io/badge/Live%20Site-broken.dev-blue)](https://broken.dev)
 
 ## Development
 
