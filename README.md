@@ -4,13 +4,23 @@ A minimalist terminal-inspired website.
 
 [![GCS Deployment Status](https://github.com/patflynn/broken-web/actions/workflows/deploy.yml/badge.svg)](https://github.com/patflynn/broken-web/actions/workflows/deploy.yml) [![Live Site](https://img.shields.io/badge/Live%20Site-broken.dev-blue)](https://broken.dev)
 
+## Project Structure
+
+- **public/** - Contains all files that are deployed to the website
+  - HTML files
+  - CSS files
+- **config/** - Contains configuration files not deployed to the website
+  - CORS configuration
+- **CLAUDE.md** - Development guidelines
+- **.github/** - CI/CD workflows
+
 ## Development
 
 See [CLAUDE.md](CLAUDE.md) for development guidelines and commands.
 
 ## Deployment
 
-This repository uses GitHub Actions to automatically deploy to Google Cloud Storage when changes are merged to the main branch.
+This repository uses GitHub Actions to automatically deploy the contents of the `public/` directory to Google Cloud Storage when changes are merged to the main branch.
 
 ### Required Secrets
 

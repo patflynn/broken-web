@@ -1,10 +1,10 @@
 # broken.dev Website Guidelines
 
 ## Commands
-- **Serve locally**: `python -m http.server` (serves on port 8000)
-- **Validate HTML**: `npx html-validator-cli index.html`
-- **Format HTML**: `npx prettier --write index.html`
-- **Format CSS**: `npx prettier --write styles.css`
+- **Serve locally**: `cd public && python -m http.server` (serves on port 8000)
+- **Validate HTML**: `npx html-validator-cli public/index.html`
+- **Format HTML**: `npx prettier --write public/index.html`
+- **Format CSS**: `npx prettier --write public/styles.css`
 
 ## Code Style Guidelines
 - **HTML**: Use 4-space indentation, lowercase tags, double quotes for attributes
@@ -16,9 +16,10 @@
 - **Responsiveness**: Maintain 800px max-width with auto margins
 
 ## File Structure
-- Keep HTML/CSS files in root directory
-- Organize any new assets in dedicated folders (images/, js/, etc.)
+- Keep all website files in the `public/` directory
+- Organize any new assets in dedicated folders within public (public/images/, public/js/, etc.)
 - Maintain UTF-8 encoding for proper box-drawing characters
+- Only files in the public/ directory will be deployed to the website
 
 ## Version Control
 - Commit messages should be clear and descriptive
