@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["http://broken.dev", "https://broken.dev", "http://www.broken.dev", "https://www.broken.dev"],
+    "responseHeader": ["Content-Type"],
+    "method": ["GET", "HEAD", "OPTIONS"],
+    "maxAgeSeconds": 3600
+  }
+]
